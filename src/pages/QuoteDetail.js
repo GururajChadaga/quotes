@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 import HighlightedQuote from '../components/quotes/HighlightedQuote';
+import NoQuotesFound from '../components/quotes/NoQuotesFound';
 
 const DUMMY_QUOTES = [
   {
@@ -16,7 +17,10 @@ const DUMMY_QUOTES = [
 
 const QuoteDetail = () => {
   const params = useParams();
-  const quote=DUMMY_QUOTES.find(quote=>quote.id===params.quoteId)
+  const quote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
+  if (!quote) {
+    return <NoQuotesFound />;
+  }
   return <HighlightedQuote author={quote.author} text={quote.text} />;
 };
 
