@@ -4,25 +4,13 @@ import NoQuotesFound from '../components/quotes/NoQuotesFound';
 import { Link, Route } from 'react-router-dom';
 import { Fragment } from 'react';
 import Comments from '../components/comments/Comments';
-
-const DUMMY_QUOTES = [
-  {
-    id: 'q1',
-    author: 'James Clear',
-    text: 'You do not rise to the level of your goals. You fall to the level of your systems.',
-  },
-  {
-    id: 'q2',
-    author: 'Vinnie',
-    text: 'Make the metronome your friend, not your enemy.',
-  },
-];
+import { useSelector } from 'react-redux';
 
 const QuoteDetail = () => {
   const params = useParams();
   const match = useRouteMatch();
-  console.log(match);
-  const quote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
+  const quotes = useSelector((state) => state.quotes);
+  const quote = quotes.find((quote) => quote.id === params.quoteId);
   if (!quote) {
     return <NoQuotesFound />;
   }

@@ -1,19 +1,9 @@
 import QuoteList from '../components/quotes/QuoteList';
+import { useSelector } from 'react-redux';
 
-const DUMMY_QUOTES = [
-  {
-    id: 'q1',
-    author: 'James Clear',
-    text: 'You do not rise to the level of your goals. You fall to the level of your systems.',
-  },
-  {
-    id: 'q2',
-    author: 'Vinnie',
-    text: 'Make the metronome your friend, not your enemy.',
-  },
-];
 const AllQuotes = () => {
-  return <QuoteList quotes={DUMMY_QUOTES} />;
+  const quotes = useSelector(state=> state.quotes)
+  return <QuoteList quotes={quotes} />;
 };
 
 export default AllQuotes;

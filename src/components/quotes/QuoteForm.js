@@ -1,20 +1,25 @@
 import { useState } from 'react';
-import { Prompt } from 'react-router-dom';
+import { Prompt, useHistory } from 'react-router-dom';
 import { Fragment } from 'react';
 import Card from '../UI/Card';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './QuoteForm.module.css';
+import quotesSlice from '../../store/quotes-slice';
+import { useDispatch } from 'react-redux';
 
 const QuoteForm = (props) => {
   const [author, setAuthor] = useState('');
   const [text, setText] = useState('');
   const [isEntering, setIsEntering] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const submitFormHandler = (event) => {
     event.preventDefault();
 
     // TODO: Add form validation
-    console.log({ author, text });
+    dispatch(quotesSlice.actions.addQuote({ author, text }));
+    history.push('/quotes');
 
     // props.onAddQuote({ author, text });
     setAuthor('');
@@ -32,10 +37,15 @@ const QuoteForm = (props) => {
   const formFocusHandler = () => {
     setIsEntering(true);
   };
+
   const formBlurHandler = () => {
     if (author.trim() === '' && text.trim() === '') {
       setIsEntering(false);
     }
+  };
+
+  const finishedFormHandler = () => {
+    setIsEntering(false);
   };
 
   return (
@@ -76,7 +86,9 @@ const QuoteForm = (props) => {
             ></textarea>
           </div>
           <div className={classes.actions}>
-            <button className='btn'>Add Quote</button>
+            <button className='btn' onClick={finishedFormHandler}>
+              Add Quote
+            </button>
           </div>
         </form>
       </Card>
