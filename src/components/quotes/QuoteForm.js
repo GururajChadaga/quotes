@@ -31,7 +31,7 @@ const QuoteForm = (props) => {
   };
 
   const textChangeHandler = (event) => {
-    setText(event.target.value.trim());
+    setText(event.target.value);
   };
 
   const formFocusHandler = () => {
