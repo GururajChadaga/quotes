@@ -13,6 +13,10 @@ const quotesSlice = createSlice({
       };
       state.push(quote);
     },
+
+    replaceQuotes(state, action) {
+      return action.payload || [];
+    },
   },
 });
 
